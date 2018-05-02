@@ -20,7 +20,7 @@ if (app.get('env') === 'development') {
 }
 
 console.log(app.get("env"));
-const port = 3000;
+const port = 3001;
 mongoose.Promise = global.Promise;
 
 //Connect to the db before tests run
@@ -78,6 +78,7 @@ fs.readdirSync(__dirname + "/models").forEach(function(filename){
 //   });
 
 app.get('/pride6', (req, res) => {
+  console.log("Connection |", "Method:", req.method + " |","URL:", req.url)
   mongoose.model("pride6").find(function(err, pride6){
     // console.log(pride6);
     res.json(pride6);
@@ -85,14 +86,29 @@ app.get('/pride6', (req, res) => {
 });
 
 app.get('/prideid', (req, res) => {
+  console.log("Connection |", "Method:", req.method + " |","URL:", req.url)
   mongoose.model("pride5").find(function(err, prideid){
     console.log(prideid);
     res.send(prideid);
   });
 });
 
+app.get("/api/:pxd", (req, res) => {
+  console.log("Connection |", "Method:", req.method + " |","URL:", req.url)
+  // const { pxd } = req.params;
+  mongoose.model("pride5").find({pxd_id: req.params.pxd}, function(err, posts) {
+    if (!posts.length){
+      res.status(404).send("No PXD ID found in database for ID: " + req.params.pxd);
+    } else {
+        res.json(posts);
+    }
+
+  });
+});
+
 
 app.get("/users", (req, res) => {
+  console.log("Connection |", "Method:", req.method + " |","URL:", req.url)
   mongoose.model("users").find(function(err, users){
     res.send(users);
   });
@@ -111,6 +127,14 @@ app.get("/", (req, res) => {
 });
 
 
+app.post("/signin", (req, res) => {
+  if (req.body.email === "email@email.co.uk" &&
+      req.body.password === "email") {
+        res.json("success")
+      } else {
+        res.status(400).json("error logging in")
+      }
+});
 
 app.post("/profile", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |","URL:", req.url)
@@ -146,7 +170,7 @@ app.post("/profile", (req, res) => {
 
 
 app.listen(port, () => {
-  console.log("Server Running on port 3000!")
+  console.log("Server Running on port 3001!")
 });
 
 
