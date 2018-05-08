@@ -98,7 +98,7 @@ app.get("/api/:pxd", (req, res) => {
   // const { pxd } = req.params;
   mongoose.model("pride5").find({pxd_id: req.params.pxd}, function(err, posts) {
     if (!posts.length){
-      res.status(404).send("No PXD ID found in database for ID: " + req.params.pxd);
+      res.status(404).json("No ID found in database for: " + req.params.pxd);
     } else {
         res.json(posts);
     }
