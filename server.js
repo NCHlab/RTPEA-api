@@ -77,6 +77,8 @@ fs.readdirSync(__dirname + "/models").forEach(function(filename){
 //   ]
 //   });
 
+
+
 app.get('/pride6', (req, res) => {
   console.log("Connection |", "Method:", req.method + " |","URL:", req.url)
   mongoose.model("pride6").find(function(err, pride6){
@@ -96,9 +98,16 @@ app.get('/prideid', (req, res) => {
 app.get("/api/:pxd", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |","URL:", req.url)
   // const { pxd } = req.params;
+  const Error_404_msg = {
+    "Status": "Not Found",
+    "Code": 404,
+    "Message": req.params.pxd + " does not exist in the database.",
+    "moreInfoUrl": "http://www.rtpea.com/status/404",
+  }
+
   mongoose.model("pride5").find({PXD: req.params.pxd}, function(err, posts) {
     if (!posts.length){
-      res.status(404).json("No ID found in database for: " + req.params.pxd);
+      res.status(404).json(Error_404_msg);
     } else {
         res.json(posts);
     }
