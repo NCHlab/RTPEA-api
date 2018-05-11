@@ -2,27 +2,18 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 
-var pridedata = new Schema({
+var pridet = new Schema({
   _id : Schema.Types.ObjectId,
-  pxd_id : String,
-  tissue_type : String,
+  PXD : String,
   study : String,
-  disease : String,
-  name : {
-      name : String,
-      sample : Number,
-      replicate : Number,
-      ORF1p: Number,
-      ORF2p: Number,
-      ORF0: Number
-    }
-  });
+  disease : String
+});
 
 
 
 
 
-module.exports = mongoose.model("pride5", pridedata);
+module.exports = mongoose.model("pridetable", pridet);
 // mongoose.model("prideid", {name: String});
 
 
