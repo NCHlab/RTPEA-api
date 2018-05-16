@@ -94,11 +94,11 @@ app.get("/table", (req, res) => {
   const Error_404_msg = {
     Status: "Not Found",
     Code: 404,
-    Message: req.params.pxd + " does not exist in the database.",
+    Message:  " does not exist in the database.",
     moreInfoUrl: "http://www.rtpea.com/status/404"
   };
 
-  mongoose.model("pridetable").find({}, function(err, posts) {
+  mongoose.model("pridenew1").find({}, function(err, posts) {
     if (!posts.length) {
       res.status(404).json(Error_404_msg);
     } else {
@@ -108,12 +108,12 @@ app.get("/table", (req, res) => {
 });
 
 
-app.get("/pridet", (req, res) => {
-  console.log("Connection |", "Method:", req.method + " |", "URL:", req.url);
-  mongoose.model("pridetable").find(function(err, pridet) {
-    res.send(pridet);
-  });
-});
+// app.get("/pridet", (req, res) => {
+//   console.log("Connection |", "Method:", req.method + " |", "URL:", req.url);
+//   mongoose.model("pridetable").find(function(err, pridet) {
+//     res.send(pridet);
+//   });
+// });
 
 
 app.get("/posts/:userID", (req, res) => {
