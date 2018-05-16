@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 
-var pridedata3 = new Schema({
+var pridetest2 = new Schema({
   _id : Schema.Types.ObjectId,
   pxd_id : String,
   tissue_type : String,
@@ -21,7 +21,7 @@ var pridedata3 = new Schema({
 
 
 
-module.exports = mongoose.model("pridetable", pridedata3);
+module.exports = mongoose.model("pridetest1", pridetest2);
 // mongoose.model("prideid", {name: String});
 
 

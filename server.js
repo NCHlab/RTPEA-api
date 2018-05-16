@@ -98,7 +98,7 @@ app.get("/table", (req, res) => {
     moreInfoUrl: "http://www.rtpea.com/status/404"
   };
 
-  mongoose.model("pridenew1").find({}, function(err, posts) {
+  mongoose.model("pridetest1").find({}, function(err, posts) {
     if (!posts.length) {
       res.status(404).json(Error_404_msg);
     } else {
