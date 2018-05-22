@@ -5,6 +5,8 @@ const fs = require("fs"); //file system library
 const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
+const promise = require("es6-promise");
+const fetch = require("isomorphic-fetch");
 
 var Schema = mongoose.Schema;
 
@@ -61,6 +63,8 @@ app.get("/prideid", (req, res) => {
   });
 });
 
+var Error_code = 401;
+
 app.get("/api/:pxd", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.url);
   // const { pxd } = req.params;
@@ -71,14 +75,71 @@ app.get("/api/:pxd", (req, res) => {
     moreInfoUrl: "http://www.rtpea.com/status/404"
   };
 
-  mongoose.model("pride5").find({ PXD: req.params.pxd }, function(err, posts) {
-    if (!posts.length) {
-      res.status(404).json(Error_404_msg);
-    } else {
-      res.json(posts);
-    }
-  });
-});
+  const Error_403_msg = {
+    Status: "Forbidden!",
+    Code: 403,
+    Message:  "You do not have permission to access this on this erver",
+    moreInfoUrl: "http://www.rtpea.com/status/401"
+  };
+
+  const Error_401_msg = {
+    Status: "Unauthorized!",
+    Code: 401,
+    Message:  "The data for " + req.params.pxd + " is currently private.",
+    moreInfoUrl: "http://www.ebi.ac.uk/pride/archive/login"
+  };
+
+  fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd)
+   .then(response => Error_code = response.status)
+   .then(console.log(Error_code))
+   .then(
+     mongoose.model("pride5").find({ PXD: req.params.pxd }, function(err, posts) {
+     if (Error_code === 401) {
+       res.status(401).json(Error_401_msg);
+     } else if (Error_code === 403) {
+       res.status(403).json(Error_403_msg);
+     } else if (!posts.length) {
+       res.status(404).json(Error_404_msg);
+     } else {
+       res.json(posts);
+     }
+   })
+ )});
+
+//   fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd)
+//   .then(response => Error_code = response.status)
+//   .then(console.log(Error_code))
+//     mongoose.model("pride5").find({ PXD: req.params.pxd }, function(err, posts) {
+//     if (Error_code === 401) {
+//       res.status(401).json(Error_401_msg);
+//     } else if (Error_code === 403) {
+//       res.status(403).json(Error_403_msg);
+//     } else if (!posts.length) {
+//       res.status(404).json(Error_404_msg);
+//     } else {
+//       res.json(posts);
+//     }
+//   });
+// });
+
+
+
+
+//   if (Error_code === 401) {
+//     res.status(401).json(Error_401_msg);
+//   } else if (Error_code === 403) {
+//     res.status(403).json(Error_403_msg);
+//   } else {
+//
+//   mongoose.model("pride5").find({ PXD: req.params.pxd }, function(err, posts) {
+//     if (!posts.length) {
+//       res.status(404).json(Error_404_msg);
+//     } else {
+//       res.json(posts);
+//     }
+//   });
+// }
+// });
 
 app.get("/users", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.url);
