@@ -69,9 +69,10 @@ app.get("/api/:pxd", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.url);
   // const { pxd } = req.params;
   const Error_404_msg = {
-    Status: "Not Found",
+    Status: "Data Not Found",
     Code: 404,
-    Message: req.params.pxd + " does not exist in the database.",
+    Response: req.params.pxd + " does not exist in this database. It has not been re-analysed",
+    Message: "Contact the developers if you have a specific request from PRIDE database",
     moreInfoUrl: "http://www.rtpea.com/status/404"
   };
 
@@ -89,11 +90,13 @@ app.get("/api/:pxd", (req, res) => {
     moreInfoUrl: "http://www.ebi.ac.uk/pride/archive/login"
   };
 
+  // 0.5 second delay added to allow for the correct error code to be displayed
   fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd)
    .then(response => Error_code = response.status)
    .then(console.log(Error_code))
    .then(
      mongoose.model("pride5").find({ PXD: req.params.pxd }, function(err, posts) {
+       setTimeout(function(){
      if (Error_code === 401) {
        res.status(401).json(Error_401_msg);
      } else if (Error_code === 403) {
@@ -103,6 +106,7 @@ app.get("/api/:pxd", (req, res) => {
      } else {
        res.json(posts);
      }
+   },800);
    })
  )});
 
