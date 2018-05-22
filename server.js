@@ -87,6 +87,7 @@ app.get("/api/:pxd", (req, res) => {
     Status: "Unauthorized!",
     Code: 401,
     Message:  "The data for " + req.params.pxd + " is currently private.",
+    Message2: "This PXD may not exist in the PRIDE archives.",
     moreInfoUrl: "http://www.ebi.ac.uk/pride/archive/login"
   };
 
