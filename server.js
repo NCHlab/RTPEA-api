@@ -9,6 +9,7 @@ const fetch = require("isomorphic-fetch");
 const app = express();
 
 table_route = require('./routes/table');
+api_old_route = require('./routes/api_old');
 api_route = require('./routes/api');
 pride6_route = require('./routes/pride6');
 prideid_route = require('./routes/prideid');
@@ -46,6 +47,7 @@ fs.readdirSync(__dirname + "/models").forEach(function(filename) {
 });
 
 app.use("/table", table_route);
+app.use("/api_old", api_old_route);
 app.use("/api", api_route);
 app.use("/pride6", pride6_route);
 app.use("/prideid", prideid_route);

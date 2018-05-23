@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require("mongoose");
 
-var Error_code = 401;
 
 router.get("/:pxd", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.url);
@@ -19,7 +18,7 @@ router.get("/:pxd", (req, res) => {
     Status: "Forbidden!",
     Code: 403,
     Message:  "You do not have permission to access this on this erver",
-    moreInfoUrl: "http://www.rtpea.com/status/401"
+    moreInfoUrl: "http://www.rtpea.com/status/403"
   };
 
   const Error_401_msg = {
@@ -30,24 +29,41 @@ router.get("/:pxd", (req, res) => {
     moreInfoUrl: "http://www.ebi.ac.uk/pride/archive/login"
   };
 
-  // 0.5 second delay added to allow for the correct error code to be displayed
-  fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd)
-   .then(response => Error_code = response.status)
-   .then(console.log(Error_code))
-   .then(
-     mongoose.model("pride5").find({ PXD: req.params.pxd }, function(err, posts) {
-       setTimeout(function(){
-     if (Error_code === 401) {
-       res.status(401).json(Error_401_msg);
-     } else if (Error_code === 403) {
-       res.status(403).json(Error_403_msg);
-     } else if (!posts.length) {
-       res.status(404).json(Error_404_msg);
-     } else {
-       res.json(posts);
-     }
-   },800);
-   })
- )});
+  // const responseCodePromise = new Promise((resolve, reject) => {
+  //   fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd)
+  //       .then(response => resolve(response.status))
+  // });
 
-module.exports = router;
+  const responseCodePromise = fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd)
+      .then(response => response.status);
+
+  const mongoosePromise = new Promise((resolve, reject) => {
+      mongoose.model("pride5").find({ PXD: req.params.pxd }, function(err, posts) {
+        if (err) {
+          reject(err);
+        }
+        resolve(posts);
+      });
+  });
+
+
+  Promise.all([responseCodePromise, mongoosePromise])
+  .then(([code, posts]) => {
+      if (code === 401) {
+          res.status(401).json(Error_401_msg);
+      } else if (code === 403) {
+          res.status(403).json(Error_403_msg);
+      } else if (!posts.length) {
+          res.status(404).json(Error_404_msg);
+      } else {
+          res.json(posts);
+      }
+  })
+
+  .catch((err) => {
+      // Always end with a catch for anything unexpected
+      console.log(err);
+      res.status(400).json({message: err});
+  });
+})
+  module.exports = router;
