@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 var Error_code = 401;
 
 router.get("/:pxd", (req, res) => {
-  console.log("Connection |", "Method:", req.method + " |", "URL:", req.url);
+  console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host') + req.originalUrl);
   // const { pxd } = req.params;
   const Error_404_msg = {
     Status: "Data Not Found",
