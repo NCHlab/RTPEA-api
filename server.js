@@ -15,6 +15,7 @@ api_route = require('./routes/api');
 pride6_route = require('./routes/pride6');
 prideid_route = require('./routes/prideid');
 visualise_route = require('./routes/visualise')
+dbcheck_route = require('./routes/dbcheck')
 var Schema = mongoose.Schema;
 
 
@@ -55,6 +56,7 @@ app.use("/api", api_route);
 app.use("/pride6", pride6_route);
 app.use("/prideid", prideid_route);
 app.use("/visualise.json", visualise_route);
+app.use("/dbcheck", dbcheck_route);
 
 // app.get("/posts/:userID", (req, res) => {
 //   mongoose
