@@ -12,8 +12,6 @@ table_route = require('./routes/table');
 tabledemo_route = require('./routes/table-demo');
 api_old_route = require('./routes/api_old');
 api_route = require('./routes/api');
-pride6_route = require('./routes/pride6');
-prideid_route = require('./routes/prideid');
 visualise_route = require('./routes/visualise')
 dbcheck_route = require('./routes/dbcheck')
 var Schema = mongoose.Schema;
@@ -53,8 +51,8 @@ app.use("/table", table_route);
 app.use("/table-demo", tabledemo_route);
 app.use("/api_old", api_old_route);
 app.use("/api", api_route);
-app.use("/pride6", pride6_route);
-app.use("/prideid", prideid_route);
+// app.use("/pride6", pride6_route);
+// app.use("/prideid", prideid_route);
 app.use("/visualise.json", visualise_route);
 app.use("/dbcheck", dbcheck_route);
 

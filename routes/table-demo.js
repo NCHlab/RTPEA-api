@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
     moreInfoUrl: "http://www.rtpea.com/status/404"
   };
 
-  mongoose.model("pride8-demo1").find({}, function(err, posts) {
+  mongoose.model("table-demo1").find({}, function(err, posts) {
     if (!posts.length) {
       res.status(404).json(Error_404_msg);
     } else {

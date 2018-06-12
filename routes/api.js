@@ -38,7 +38,7 @@ router.get("/:pxd", (req, res) => {
       .then(response => response.status);
 
   const mongoosePromise = new Promise((resolve, reject) => {
-      mongoose.model("pride5").find({ PXD: req.params.pxd }, function(err, posts) {
+      mongoose.model("api1").find({ PXD: req.params.pxd }, function(err, posts) {
         if (err) {
           reject(err);
         }
