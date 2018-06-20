@@ -3,7 +3,7 @@ var router = express.Router();
 const mongoose = require("mongoose");
 
 
-router.get("/", (req, res) => {
+router.get("/:pxd", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.originalUrl);
 
  // console.log("Connection |", "Method:", req.method + " |", "URL:",  req.get('host') + req.originalUrl);
@@ -13,8 +13,12 @@ router.get("/", (req, res) => {
   //   Message:  " does not exist in the database.",
   //   moreInfoUrl: "http://www.rtpea.com/status/404"
   // };
+  var PXD_ID = req.params.pxd.toUpperCase();
+  if (PXD_ID == "UNDEFINED"){
+    PXD_ID = "ORF1P"
+  }
 
-  mongoose.model("visualise1").find({}, function(err, posts) {
+  mongoose.model("visualise1").find({ PXD: PXD_ID }, function(err, posts) {
     // if (!posts.length) {
     //   res.status(404).json(Error_404_msg);
     // } else {
