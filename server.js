@@ -13,6 +13,7 @@ tabledemo_route = require('./routes/table-demo');
 api_old_route = require('./routes/api_old');
 api_route = require('./routes/api');
 visualise_route = require('./routes/visualise')
+visualise_config_route = require('./routes/visualise_config')
 dbcheck_route = require('./routes/dbcheck')
 var Schema = mongoose.Schema;
 
@@ -54,6 +55,7 @@ app.use("/api", api_route);
 // app.use("/pride6", pride6_route);
 // app.use("/prideid", prideid_route);
 app.use("/visualise", visualise_route);
+app.use("/visualise_config.json", visualise_config_route);
 app.use("/dbcheck", dbcheck_route);
 
 // app.get("/posts/:userID", (req, res) => {
