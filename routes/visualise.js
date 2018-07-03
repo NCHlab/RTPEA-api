@@ -15,7 +15,8 @@ router.get("/:pxd", (req, res) => {
   // };
   var PXD_ID = req.params.pxd.toUpperCase();
   if (PXD_ID == "UNDEFINED"){
-    PXD_ID = "ORF1P"
+    // PXD_ID = "ORF1P"
+    PXD_ID = "TEST"
   }
 
   mongoose.model("visualise1").find({ PXD: PXD_ID }, function(err, posts) {
