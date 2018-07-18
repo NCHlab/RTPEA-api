@@ -3,17 +3,15 @@ var router = express.Router();
 const mongoose = require("mongoose");
 
 
-
-
 router.get("/:id", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host') + req.originalUrl);
-  console.log(req.originalUrl)
+  // console.log(req.originalUrl)
   if ((req.originalUrl == "/ideogram/undefined") || (req.originalUrl == "/ideogram")) {
     mongoose.model("ideogram1").find({}, function(err, posts) {
       res.json(posts);
     });
   } else {
-    const regex = /\w+_\d+\w+_?\d+/g;
+    const regex = /[A-Z]+\d?_+\d+_?[A-Z]*\d*_*\d*[A-Z]*/gm;
     const str = req.originalUrl;
     let m;
     var data_name = [];
@@ -35,11 +33,17 @@ router.get("/:id", (req, res) => {
     }
     var i;
     for (i = 0; i < data_name.length; i++) {
+      // Checks for name such as LINE_1_HS_101_ORF1
+        // if (data_name[i].slice(-5,-4) == "_"){
+        //   family_name.push(data_name[i].slice(0,-5))
+
+      // Checks for name such as LINE_1_HS_101
+        // } else
         if (data_name[i].slice(0,4) == "LINE"){
           family_name.push(data_name[i])
-        } else {
+        } else{
+      // Name such as HS_101
           family_name.push("LINE_1_"+data_name[i])
-          // console.log(family_name)
         }
     }
     // db.getCollection('ideogram1').find( { $or: [ {"name":"LINE_1_HS_101" }, { "name":"LINE_1_HS_103"}]})
@@ -52,11 +56,7 @@ router.get("/:id", (req, res) => {
                                             {"name":family_name[6]}]}, function(err, posts) {
       res.json(posts);
     });
-    // res.json(data_name);
-
-
   }
-
   });
 
 module.exports = router;
