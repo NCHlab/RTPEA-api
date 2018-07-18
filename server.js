@@ -71,13 +71,13 @@ app.use("/sequence", sequence_route);
 // });
 
 app.get("/", (req, res) => {
-  console.log("Connection |", "Method:", req.method + " |", "URL:", req.url);
-  res.send("Default Home Page");
+  console.log("Connection |", "Method:", req.method + " |", "URL:", req.url + " | " + "Server.js returned this > not routes");
+  res.send("Welcome to the API for RTPEA - This is the Backend Server for RTPEA");
 });
 
 // Displays Error Message, if an incorrect URL is entered
 app.get("/:any", (req, res) => {
-  console.log("Connection |", "Method:", req.method + " |", "URL:", req.url);
+  console.log("Connection |", "Method:", req.method + " |", "URL:", req.url + " | " + "Server.js returned this > not routes");
   res.status(404).send("ERROR 404: URL NOT FOUND");
 });
 
