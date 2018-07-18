@@ -16,6 +16,7 @@ visualise_route = require('./routes/visualise')
 visualise_config_route = require('./routes/visualise_config')
 dbcheck_route = require('./routes/dbcheck')
 ideogram_route = require('./routes/ideogram')
+sequence_route = require('./routes/sequence')
 var Schema = mongoose.Schema;
 
 
@@ -59,6 +60,7 @@ app.use("/visualise", visualise_route);
 app.use("/visualise_config.json", visualise_config_route);
 app.use("/dbcheck", dbcheck_route);
 app.use("/ideogram", ideogram_route);
+app.use("/sequence", sequence_route);
 
 // app.get("/posts/:userID", (req, res) => {
 //   mongoose
