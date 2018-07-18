@@ -16,6 +16,7 @@ router.get("/:id", (req, res) => {
     let m;
     var data_name = [];
     var family_name = [];
+    var text_string=[];
 
 
     while ((m = regex.exec(str)) !== null) {
@@ -47,16 +48,27 @@ router.get("/:id", (req, res) => {
         }
     }
     // db.getCollection('ideogram1').find( { $or: [ {"name":"LINE_1_HS_101" }, { "name":"LINE_1_HS_103"}]})
-    mongoose.model("ideogram1").find({$or:[{"name":family_name[0]},
-                                            {"name":family_name[1]},
-                                            {"name":family_name[2]},
-                                            {"name":family_name[3]},
-                                            {"name":family_name[4]},
-                                            {"name":family_name[5]},
-                                            {"name":family_name[6]}]}, function(err, posts) {
+
+
+      var j;
+      for (j = 0; j < family_name.length; j++) {
+        text_string.push({"name":family_name[j]})
+      }
+
+    mongoose.model("ideogram1").find({$or:text_string}, function(err, posts) {
       res.json(posts);
     });
   }
   });
 
 module.exports = router;
+
+// mongoose.model("ideogram1").find({$or:[{"name":family_name[0]},
+//                                         {"name":family_name[1]},
+//                                         {"name":family_name[2]},
+//                                         {"name":family_name[3]},
+//                                         {"name":family_name[4]},
+//                                         {"name":family_name[5]},
+//                                         {"name":family_name[6]}]}, function(err, posts) {
+//   res.json(posts);
+// });
