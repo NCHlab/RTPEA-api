@@ -10,7 +10,7 @@ const app = express();
 
 table_route = require('./routes/table');
 tabledemo_route = require('./routes/table-demo');
-api_old_route = require('./routes/api_old');
+// api_old_route = require('./routes/api_old');
 api_route = require('./routes/api');
 visualise_route = require('./routes/visualise')
 visualise_config_route = require('./routes/visualise_config')
