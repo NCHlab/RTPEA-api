@@ -14,6 +14,12 @@ router.get("/:id", (req, res) => {
   } else {
     // Removes /sequence/ from the family_name
     var fam_name = req.originalUrl.slice(10);
+    if (fam_name.slice(0,4)=="LINE"){
+
+    } else {
+      fam_name = "LINE_1_"+fam_name
+    }
+
     mongoose.model("seqview1").find({"Family":fam_name}, function(err, posts) {
       if (posts.length == 0){
         res.json([{"Family":"NA",
