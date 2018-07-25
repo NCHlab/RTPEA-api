@@ -20,6 +20,16 @@ router.get("/:id", (req, res) => {
       fam_name = "LINE_1_"+fam_name
     }
 
+    if (fam_name == "LINE_1_Hs"){
+      mongoose.model("seqview1").find({"Family":{ $regex: /LINE_1_HS/}}, function(err, posts) {
+        res.json(posts);
+    });
+  } else if (fam_name == "LINE_1_Pa"){
+      mongoose.model("seqview1").find({"Family":{ $regex: /LINE_1_PA/}}, function(err, posts) {
+        res.json(posts);
+    });
+  } else {
+
     mongoose.model("seqview1").find({"Family":fam_name}, function(err, posts) {
       if (posts.length == 0){
         res.json([{"Family":"NA",
@@ -29,6 +39,7 @@ router.get("/:id", (req, res) => {
       }
 
     });
+  }
   }
   });
 module.exports = router;
