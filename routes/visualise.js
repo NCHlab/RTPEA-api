@@ -17,6 +17,10 @@ router.get("/:pxd", (req, res) => {
   if (PXD_ID == "UNDEFINED"){
     // PXD_ID = "ORF1P"
     PXD_ID = "TEST"
+  } else if (PXD_ID == "ORF1") {
+      PXD_ID = PXD_ID +"P"
+  } else if (PXD_ID == "ORF2") {
+    PXD_ID = PXD_ID +"P"
   }
 
   mongoose.model("visualise1").find({ PXD: PXD_ID }, function(err, posts) {
