@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const MongoClient = require("mongodb").MongoClient;
+// const MongoClient = require("mongodb").MongoClient;
 const fs = require("fs"); //file system library
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -17,6 +17,7 @@ visualise_config_route = require('./routes/visualise_config')
 dbcheck_route = require('./routes/dbcheck')
 ideogram_route = require('./routes/ideogram')
 sequence_route = require('./routes/sequence')
+generate_route = require('./routes/generate')
 var Schema = mongoose.Schema;
 
 
@@ -61,7 +62,7 @@ app.use("/visualise_config.json", visualise_config_route);
 app.use("/dbcheck", dbcheck_route);
 app.use("/ideogram", ideogram_route);
 app.use("/sequence", sequence_route);
-
+app.use("/generate", generate_route);
 // app.get("/posts/:userID", (req, res) => {
 //   mongoose
 //     .model("posts")

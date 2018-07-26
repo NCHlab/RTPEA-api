@@ -4,18 +4,19 @@ var Schema = mongoose.Schema;
 
 var table_data = new Schema({
   _id : Schema.Types.ObjectId,
-  pxd_id : String,
-  tissue_type : String,
+  PXD : String,
   study : String,
   disease : String,
-  name : {
-      name : String,
-      sample : Number,
+  no_of_samples : Number,
+  name : [{
+      Snumber : String,
       replicate : Number,
+      phenotype : String,
+      tissue_type : String,
       ORF1p: Number,
       ORF2p: Number,
       ORF0: Number
-    }
+    }]
   });
 
 
