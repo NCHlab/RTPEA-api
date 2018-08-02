@@ -3,6 +3,11 @@ var router = express.Router();
 const mongoose = require("mongoose");
 
 
+router.get("/", (req, res) => {
+  console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host')+"/api" + " | " + "Main API Page");
+  res.send("For Programmatic access use https://api.rtpea.com/api/{PXD}");
+});
+
 router.get("/:pxd", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host') + req.originalUrl);
   // const { pxd } = req.params;
