@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 router.get("/", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host')+"/api" + " | " + "Main API Page");
-  res.send("For Programmatic access use https://api.rtpea.com/api/{PXD}");
+  res.json({"Message":"For Programmatic access use https://api.rtpea.com/api/{PXD}"});
 });
 
 router.get("/:pxd", (req, res) => {
@@ -39,11 +39,11 @@ router.get("/:pxd", (req, res) => {
   //       .then(response => resolve(response.status))
   // });
 
-  const responseCodePromise = fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd)
+  const responseCodePromise = fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd.toUpperCase())
       .then(response => response.status);
 
   const mongoosePromise = new Promise((resolve, reject) => {
-      mongoose.model("api1").find({ PXD: req.params.pxd }, function(err, posts) {
+      mongoose.model("api1").find({ PXD: req.params.pxd.toUpperCase() }, function(err, posts) {
         if (err) {
           reject(err);
         }
