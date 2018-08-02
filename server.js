@@ -73,7 +73,10 @@ app.use("/generate", generate_route);
 
 app.get("/", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.url + " | " + "Server.js returned this > not routes");
-  res.send("Welcome to the API for RTPEA - This is the Backend Server for RTPEA");
+  res.json({
+  	"Message": "Welcome to the API for RTPEA - This is the Backend Server for RTPEA",
+  	"Message2": "For API access go to https://api.rtpea.com/api/{PXD}"
+  });
 });
 
 // Displays Error Message, if an incorrect URL is entered
