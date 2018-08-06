@@ -16,14 +16,14 @@ router.get("/:pxd", (req, res) => {
     Code: 404,
     Response: req.params.pxd + " is a valid PXD, but does not exist in this database. It has not been re-analysed",
     Message: "Contact the developers if you have a specific request from PRIDE database",
-    moreInfoUrl: "http://www.rtpea.com/status/404"
+    moreInfoUrl: "https://rtpea.com/status/404"
   };
 
   const Error_403_msg = {
     Status: "Forbidden!",
     Code: 403,
     Message:  "You do not have permission to access this on this server",
-    moreInfoUrl: "http://www.rtpea.com/status/403"
+    moreInfoUrl: "https://rtpea.com/status/403"
   };
 
   const Error_401_msg = {
