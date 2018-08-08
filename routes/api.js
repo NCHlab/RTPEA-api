@@ -43,7 +43,7 @@ router.get("/:pxd", (req, res) => {
       .then(response => response.status);
 
   const mongoosePromise = new Promise((resolve, reject) => {
-      mongoose.model("api1").find({ PXD: req.params.pxd.toUpperCase() }, function(err, posts) {
+      mongoose.model("table1").find({ PXD: req.params.pxd.toUpperCase() }, function(err, posts) {
         if (err) {
           reject(err);
         }
