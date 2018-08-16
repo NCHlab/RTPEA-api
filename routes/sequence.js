@@ -5,9 +5,21 @@ const mongoose = require("mongoose");
 
 router.get("/:id", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host') + req.originalUrl);
+if (req.originalUrl == "/sequence/all") {
+  mongoose.model("seqview1").find({}, function(err, posts) {
+    if (posts.length == 0){
+      res.json([{"Family":"NA",
+                "Sequence":"No Matches Found!"}]);
+    } else {
+      res.json(posts);
+    })
+  }
+}
+
+
 
 // If user clicks on /Sequence, by Default ORF1p sequence returned > can automate this to grab data from db
-  if ((req.originalUrl == "/sequence/undefined") || (req.originalUrl == "/sequence")) {
+else if ((req.originalUrl == "/sequence/undefined") || (req.originalUrl == "/sequence")) {
     // mongoose.model("seqview1").find({"Family":""}, function(err, posts) {
       res.json([{"Family":"ORF1p",
                 "Sequence":"MGKKQNRKTGNSKTQSASPPPKERSSSPATEQSWMENDFDELREEGFRRSNYSELREDIQTKGKEVENFEKNLEECITRITNTEKCLKELMELKTKARELREECRSLRSRCDQLEERVSAMEDEMNEMKREGKFREKRIKRNEQSLQEIWDYVKRPNLRLIGVPESDVENGTKLENTLQDIIQENFPNLARQANVQIQEIQRTPQRYSSRRATPRHIIVRFTKVEMKEKMLRAAREKGRVTLKGKPIRLTADLSAETLQARREWGPIFNILKEKNFQPRISYPAKLSFISEGEIKYFIDKQMLRDFVTTRPALKELLKEALNMERNNRYQPLQNHAKM"}]);
