@@ -12,8 +12,8 @@ if (req.originalUrl == "/sequence/all") {
                 "Sequence":"No Matches Found!"}]);
     } else {
       res.json(posts);
-    })
-  }
+    }
+  })
 }
 
 
