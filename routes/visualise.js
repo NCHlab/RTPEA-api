@@ -16,7 +16,7 @@ router.get("/:pxd", (req, res) => {
   var PXD_ID = req.params.pxd.toUpperCase();
   if (PXD_ID == "UNDEFINED"){
     // PXD_ID = "ORF1P"
-    PXD_ID = "TEST"
+    PXD_ID = "ORF1P"
   } else if (PXD_ID == "ORF1") {
       PXD_ID = PXD_ID +"P"
   } else if (PXD_ID == "ORF2") {
