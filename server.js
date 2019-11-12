@@ -19,6 +19,9 @@ dbcheck_route = require('./routes/dbcheck')
 ideogram_route = require('./routes/ideogram')
 sequence_route = require('./routes/sequence')
 generate_route = require('./routes/generate')
+select_data = require('./routes/select_data')
+newvis = require('./routes/newvis')
+orfNames = require('./routes/ORFNames')
 var Schema = mongoose.Schema;
 
 
@@ -65,6 +68,10 @@ app.use("/dbcheck", dbcheck_route);
 app.use("/ideogram", ideogram_route);
 app.use("/sequence", sequence_route);
 app.use("/generate", generate_route);
+app.use("/select_data", select_data);
+app.use("/newvis", newvis);
+app.use("/orfnames", orfNames);
+
 // app.get("/posts/:userID", (req, res) => {
 //   mongoose
 //     .model("posts")

@@ -27,6 +27,7 @@ router.get("/:pxd", (req, res) => {
     // if (!posts.length) {
     //   res.status(404).json(Error_404_msg);
     // } else {
+    
       res.json(posts);
     // }
   });
@@ -36,3 +37,19 @@ router.get("/:pxd", (req, res) => {
 
 
 module.exports = router;
+
+
+//db.getCollection('retailers').find(
+//    { 'stores.offers.size': 'L'},
+//    { 'stores.$': 1 }
+//).forEach(function(doc) {
+//    // Technically this is only "one" store. So omit the projection
+//    // if you wanted more than "one" match
+//    doc.stores = doc.stores.filter(function(store) {
+//        store.offers = store.offers.filter(function(offer) {
+//            return offer.size.indexOf("L") != -1;
+//        });
+//        return store.offers.length != 0;
+//    });
+//    printjson(doc);
+//})
