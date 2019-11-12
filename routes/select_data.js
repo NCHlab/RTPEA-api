@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
      //   Message:  " does not exist in the database.",
      //   moreInfoUrl: "http://www.rtpea.com/status/404"
      // };
-    console.log(req.params.state)
+    //console.log(req.params.state)
      //var PXD_ID = req.params.pxd.toUpperCase();
      //if (PXD_ID == "UNDEFINED"){
      //  // PXD_ID = "ORF1P"
@@ -62,8 +62,8 @@ router.get("/", (req, res) => {
                 }
             }
         })
-        console.log([listOfStates,listOfTissues])
-        res.json([{'States':listOfStates},{'Tissue':listOfTissues}]);
+        //console.log([listOfStates,listOfTissues])
+        res.json({'States':listOfStates,'Tissue':listOfTissues});
       });
       
       

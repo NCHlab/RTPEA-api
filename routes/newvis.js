@@ -32,33 +32,42 @@ router.get("/:pxdid/:tissue/:state/", (req, res) => {
   //req.params.state = req.params.state.replace("search","")
   // SORT THE REQ PARAMS WHEN MULTIPLE SELECTIONS
    
-  state = req.params.state.replace("search","")
+  state = req.params.state.replace("search","").replace("undefined","")
    
    
   mongoose.model("visualise1").find({PXD: req.params.pxdid }, function(err, posts) {
 
-    var listOfData = []
+    var healthyData = []
+    var diseasedData = []
+    var bothData = []
     //console.log(posts[0].features[0].consequence3)
 
     posts[0].features.forEach(function(features) {
         //console.log(features.consequence3);
+        if (features.consequence === req.params.tissue || features.category === "DOMAINS_AND_SITES"){
+                bothData.push(features)
+              }
         
-        if (state === 'healthy' || state === 'normal'){
+        if (state === "healthy" || state === "normal"){
           if ( features.consequence === req.params.tissue && ['healthy','normal'].includes(features.consequence3) || features.category === "DOMAINS_AND_SITES"){
-            listOfData.push(features)
-          } else {
-            if ( features.consequence === req.params.tissue && !['healthy','normal'].includes(features.consequence3) || features.category === "DOMAINS_AND_SITES"){
-              listOfData.push(features)
-            }
+            healthyData.push(features)
           }
-        }
-        
-        
-
+        } else if (state === "diseased") {
+            if ( features.consequence === req.params.tissue && !['healthy','normal'].includes(features.consequence3) || features.category === "DOMAINS_AND_SITES"){
+              diseasedData.push(features)
+            } 
+          }
     })
     
-    //console.log([listOfStates,listOfTissues])
-    posts[0].features = listOfData
+    
+    if (state === 'healthy' || state === 'normal'){
+      posts[0].features = healthyData
+    } else if (state === 'diseased') {
+      posts[0].features = diseasedData
+    } else {
+      posts[0].features = bothData
+      
+    }
     res.json(posts);
     //res.json(listOfData);
 
