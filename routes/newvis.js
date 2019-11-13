@@ -3,7 +3,7 @@ var router = express.Router();
 const mongoose = require("mongoose");
 
 
-router.get("/:pxdid/:tissue/:state/", (req, res) => {
+router.get("/:pxdid/:tissue/:state/:siftScore/", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.originalUrl);
 
  // console.log("Connection |", "Method:", req.method + " |", "URL:",  req.get('host') + req.originalUrl);
@@ -42,18 +42,19 @@ router.get("/:pxdid/:tissue/:state/", (req, res) => {
     var bothData = []
     //console.log(posts[0].features[0].consequence3)
 
+    //console.log("test")
     posts[0].features.forEach(function(features) {
         //console.log(features.consequence3);
-        if (features.consequence === req.params.tissue || features.category === "DOMAINS_AND_SITES"){
+        if (features.consequence === req.params.tissue && features.siftScore >= parseFloat(req.params.siftScore)/100 || features.category === "DOMAINS_AND_SITES"){
                 bothData.push(features)
               }
         
         if (state === "healthy" || state === "normal"){
-          if ( features.consequence === req.params.tissue && ['healthy','normal'].includes(features.consequence3) || features.category === "DOMAINS_AND_SITES"){
+          if ( features.consequence === req.params.tissue && ['healthy','normal'].includes(features.consequence3) && features.siftScore >= parseFloat(req.params.siftScore)/100 || features.category === "DOMAINS_AND_SITES"){
             healthyData.push(features)
           }
         } else if (state === "diseased") {
-            if ( features.consequence === req.params.tissue && !['healthy','normal'].includes(features.consequence3) || features.category === "DOMAINS_AND_SITES"){
+            if ( features.consequence === req.params.tissue && !['healthy','normal'].includes(features.consequence3) && features.siftScore >= parseFloat(req.params.siftScore)/100  || features.category === "DOMAINS_AND_SITES"){
               diseasedData.push(features)
             } 
           }
