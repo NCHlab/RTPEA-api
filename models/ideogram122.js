@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 
-var ideogram122 = new Schema({
+var ideogram1 = new Schema({
   _id : Schema.Types.ObjectId
   });
 
@@ -10,4 +10,4 @@ var ideogram122 = new Schema({
 
 
 
-module.exports = mongoose.model("ideogram122", ideogram122);
+module.exports = mongoose.model("ideogram1", ideogram1);
