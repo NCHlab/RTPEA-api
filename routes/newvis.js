@@ -45,19 +45,36 @@ router.get("/:pxdid/:tissue/:state/:siftScore/", (req, res) => {
     //console.log("test")
     posts[0].features.forEach(function(features) {
         //console.log(features.consequence3);
-        if (features.consequence === req.params.tissue && features.siftScore >= parseFloat(req.params.siftScore)/100 || features.category === "DOMAINS_AND_SITES"){
-                bothData.push(features)
-              }
         
+              
+            //  "consequence" : "liver",
+            //"consequence2" : "",
+            //"consequence3" : "meta_missing",
+            //
         if (state === "healthy" || state === "normal"){
           if ( features.consequence === req.params.tissue && ['healthy','normal'].includes(features.consequence3) && features.siftScore >= parseFloat(req.params.siftScore)/100 || features.category === "DOMAINS_AND_SITES"){
             healthyData.push(features)
           }
         } else if (state === "diseased") {
             if ( features.consequence === req.params.tissue && !['healthy','normal'].includes(features.consequence3) && features.siftScore >= parseFloat(req.params.siftScore)/100  || features.category === "DOMAINS_AND_SITES"){
-              diseasedData.push(features)
+              if (features['consequence2'].includes('diseased')){
+                features['consequence'] += ' diseased'
+                diseasedData.push(features)
+              
             } 
           }
+        }
+        
+        
+        if (features.consequence === req.params.tissue && features.siftScore >= parseFloat(req.params.siftScore)/100 || features.category === "DOMAINS_AND_SITES"){
+          if (features['consequence2'].includes('diseased')){
+                features['consequence'] += ' diseased'
+          }
+          if (features['consequence3'].includes('meta_missing')){
+                features['consequence'] += ' meta_missing'
+          }
+                bothData.push(features)
+              }
     })
     
     
