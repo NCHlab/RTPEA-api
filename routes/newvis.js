@@ -70,7 +70,7 @@ router.get("/:pxdid/:tissue/:state/:siftScore/", (req, res) => {
           if (features['consequence2'].includes('diseased')){
                 features['consequence'] += ' diseased'
           }
-          if (features['consequence3'].includes('meta_missing')){
+          if (features['consequence3'].includes('meta_missing') && !features['consequence'].includes('meta_missing')){
                 features['consequence'] += ' meta_missing'
           }
                 bothData.push(features)
