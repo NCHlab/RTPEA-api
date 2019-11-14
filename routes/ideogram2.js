@@ -7,7 +7,7 @@ router.get("/:id", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host') + req.originalUrl);
 
     mongoose.model("ideogram122").find({}, function(err, posts) {
-      delete posts[0]._id
+      //delete posts[0]._id
       res.json(posts[0]);
     });
   });
