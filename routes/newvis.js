@@ -51,12 +51,18 @@ router.get("/:pxdid/:tissue/:state/:siftScore/", (req, res) => {
             //"consequence2" : "",
             //"consequence3" : "meta_missing",
             //
+        if (features.category === "DOMAINS_AND_SITES" || features.category === "PTM"){
+          healthyData.push(features)
+          diseasedData.push(features)
+          bothData.push(features)
+        }
+        //console.log(features)
         if (state === "healthy" || state === "normal"){
-          if ( features.consequence === req.params.tissue && ['healthy','normal'].includes(features.consequence3) && features.siftScore >= parseFloat(req.params.siftScore)/100 || features.category === "DOMAINS_AND_SITES"){
+          if (features.consequence === req.params.tissue && ['healthy','normal'].includes(features.consequence3) && features.siftScore >= parseFloat(req.params.siftScore)/100){
             healthyData.push(features)
           }
         } else if (state === "diseased") {
-            if ( features.consequence === req.params.tissue && !['healthy','normal'].includes(features.consequence3) && features.siftScore >= parseFloat(req.params.siftScore)/100  || features.category === "DOMAINS_AND_SITES"){
+            if (features.consequence === req.params.tissue && !['healthy','normal'].includes(features.consequence3) && features.siftScore >= parseFloat(req.params.siftScore)/100){
               if (features['consequence2'].includes('diseased')){
                 features['consequence'] += ' diseased'
                 diseasedData.push(features)
@@ -66,7 +72,7 @@ router.get("/:pxdid/:tissue/:state/:siftScore/", (req, res) => {
         }
         
         
-        if (features.consequence === req.params.tissue && features.siftScore >= parseFloat(req.params.siftScore)/100 || features.category === "DOMAINS_AND_SITES"){
+        if (features.consequence === req.params.tissue && features.siftScore >= parseFloat(req.params.siftScore)/100){
           if (features['consequence2'].includes('diseased')){
                 features['consequence'] += ' diseased'
           }

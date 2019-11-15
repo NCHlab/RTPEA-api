@@ -8,7 +8,8 @@ router.get("/:id", (req, res) => {
 
     mongoose.model("ideogram122").find({}, function(err, posts) {
       //delete posts[0]._id
-      res.json(posts[0]);
+      //console.log(posts[0]['annotations'])
+      res.json(posts[0]['annotations']);
     });
   });
 

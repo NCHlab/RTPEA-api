@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 
 var ideogram122 = new Schema({
-  _id : Schema.Types.ObjectId
+  _id : Schema.Types.ObjectId,
+  annotations: Array
   });
 
 
