@@ -51,13 +51,18 @@ router.get("/:pxdid/:tissue/:state/:siftScore/", (req, res) => {
             //"consequence2" : "",
             //"consequence3" : "meta_missing",
             //
-        if (features.category === "DOMAINS_AND_SITES" || features.category === "PTM"){
+            
+        // PTM CODE
+        
+        if (features.category === "PTM" && features.tissue === req.params.tissue){
           healthyData.push(features)
           diseasedData.push(features)
           bothData.push(features)
-        }
-        //console.log(features)
-        if (state === "healthy" || state === "normal"){
+        } else if (features.category === "DOMAINS_AND_SITES"){
+          healthyData.push(features)
+          diseasedData.push(features)
+          bothData.push(features)
+        } else if (state === "healthy" || state === "normal"){
           if (features.consequence === req.params.tissue && ['healthy','normal'].includes(features.consequence3) && features.siftScore >= parseFloat(req.params.siftScore)/100){
             healthyData.push(features)
           }
