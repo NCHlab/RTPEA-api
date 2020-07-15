@@ -23,7 +23,7 @@ select_data = require('./routes/select_data')
 newvis = require('./routes/newvis')
 orfNames = require('./routes/ORFNames')
 
-ideogram122_route = require('./routes/ideogram2')
+ideogram_loci_route = require('./routes/ideogram_loci')
 var Schema = mongoose.Schema;
 
 
@@ -73,7 +73,7 @@ app.use("/generate", generate_route);
 app.use("/select_data", select_data);
 app.use("/newvis", newvis);
 app.use("/orfnames", orfNames);
-app.use("/ideogram2", ideogram122_route)
+app.use("/ideogram_loci", ideogram_loci_route)
 // app.get("/posts/:userID", (req, res) => {
 //   mongoose
 //     .model("posts")
