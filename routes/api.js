@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 
 router.get("/:pxd", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host') + req.originalUrl);
-  // const { pxd } = req.params;
+
   const Error_404_msg = {
     Status: "Data Not Found",
     Code: 404,
@@ -33,11 +33,6 @@ router.get("/:pxd", (req, res) => {
     Message2: "This PXD may not exist in the PRIDE archives.",
     moreInfoUrl: "http://www.ebi.ac.uk/pride/archive/login"
   };
-
-  // const responseCodePromise = new Promise((resolve, reject) => {
-  //   fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd)
-  //       .then(response => resolve(response.status))
-  // });
 
   const responseCodePromise = fetch("https://www.ebi.ac.uk:443/pride/ws/archive/project/" + req.params.pxd.toUpperCase())
       .then(response => response.status);

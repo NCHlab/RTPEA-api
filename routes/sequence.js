@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require("mongoose");
 
-
 router.get("/:id", (req, res) => {
     console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host') + req.originalUrl);
     if (req.originalUrl == "/sequence/all") {
@@ -20,7 +19,6 @@ router.get("/:id", (req, res) => {
 
     // If user clicks on /Sequence, by Default ORF1p sequence returned > can automate this to grab data from db
     else if ((req.originalUrl == "/sequence/undefined") || (req.originalUrl == "/sequence")) {
-        // mongoose.model("seqview1").find({"Family":""}, function(err, posts) {
         res.json([{
             "Family": "ORF1p",
             "Sequence": "MGKKQNRKTGNSKTQSASPPPKERSSSPATEQSWMENDFDELREEGFRRSNYSELREDIQTKGKEVENFEKNLEECITRITNTEKCLKELMELKTKARELREECRSLRSRCDQLEERVSAMEDEMNEMKREGKFREKRIKRNEQSLQEIWDYVKRPNLRLIGVPESDVENGTKLENTLQDIIQENFPNLARQANVQIQEIQRTPQRYSSRRATPRHIIVRFTKVEMKEKMLRAAREKGRVTLKGKPIRLTADLSAETLQARREWGPIFNILKEKNFQPRISYPAKLSFISEGEIKYFIDKQMLRDFVTTRPALKELLKEALNMERNNRYQPLQNHAKM"
@@ -70,4 +68,5 @@ router.get("/:id", (req, res) => {
         }
     }
 });
+
 module.exports = router;

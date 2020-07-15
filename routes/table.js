@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const mongoose = require("mongoose");
 
-
 router.get("/", (req, res) => {
   console.log("Connection |", "Method:", req.method + " |", "URL:", req.get('host') + req.originalUrl);
 
@@ -21,8 +20,5 @@ router.get("/", (req, res) => {
     }
   });
 });
-
-
-
 
 module.exports = router;
